@@ -1,15 +1,15 @@
 TARGET=main
 
-all: main.png
+all: $(TARGET).png
 
-main.ll: main.cc
-	clang++ -emit-llvm -S main.cc -o main.ll
+$(TARGET).ll: $(TARGET).cc
+	clang++ -emit-llvm -S $(TARGET).cc -o $(TARGET).ll
 
-cfg.main.dot: main.ll
-	opt --dot-cfg main.ll
+cfg.$(TARGET).dot: $(TARGET).ll
+	opt --dot-cfg $(TARGET).ll
 
-main.png: cfg.main.dot
-	dot -Tpng cfg.main.dot -o main.png
+$(TARGET).png: cfg.$(TARGET).dot
+	dot -Tpng cfg.$(TARGET).dot -o $(TARGET).png
 
 .PHONY clean:
 	-rm *.png
